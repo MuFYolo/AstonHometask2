@@ -10,6 +10,15 @@ import java.util.Optional;
 public class UserDao {
 
     private static final Logger logger = LoggerFactory.getLogger(UserDao.class);
+    private UserDao userDao;
+
+    public UserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    public UserDao() {
+
+    }
 
     public void save(User user) {
         Transaction transaction = null;
@@ -73,5 +82,14 @@ public class UserDao {
             logger.error("Failed to delete user: {}", id, e);
             throw e;
         }
+    }
+
+    public User createAndReturnUser(String name, String email, Integer age) {
+        if (age < 18) {
+            throw new IllegalArgumentException("User must be adult");
+        }
+        User user = new User(name, email, age);
+        userDao.save(user); // Вызов DAO
+        return user;
     }
 }
