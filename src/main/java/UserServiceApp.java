@@ -9,7 +9,7 @@ import java.util.Scanner;
 @RequiredArgsConstructor
 public class UserServiceApp implements CommandLineRunner {
 
-    private final UserService userService; // Spring сам внедрит сервис
+    private final UserService userService;
     private final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -40,7 +40,6 @@ public class UserServiceApp implements CommandLineRunner {
                     }
                     case 3 -> userService.findAll().forEach(System.out::println);
                     case 6 -> running = false;
-                    // Другие кейсы по аналогии...
                 }
             } catch (Exception e) {
                 System.err.println("Error: " + e.getMessage());
